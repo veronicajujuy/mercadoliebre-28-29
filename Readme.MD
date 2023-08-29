@@ -19,17 +19,9 @@
 
 ```js
    <% products.map(product => {%>
+      <a href="/products/detail/<%= product.id %>">
    <% }) %>
 ```
-
-OJO ACÁ NO HAY QUE PONER SOLO () HAY QUE PONER {}
-rutas:
-
-```js
- <a href="/products/detail/<%= product.id %>">
-```
-
-/products/:id
 
 6. buscar la ruta:
    en routes -> product.js
