@@ -31,7 +31,23 @@ const controller = {
   // Create -  Method to store
   store: (req, res) => {
     // Do the magic
-    res.send("formulario recibido");
+    const data = req.body;
+
+    const index = products[products.length - 1].id;
+
+    const newProduct = {
+      id: index + 1,
+      name: data.name,
+      price: data.price,
+      discount: data.discount,
+      category: data.category,
+      description: data.description,
+      image: req.file.filename,
+    };
+    products.push(newProduct);
+    fs.writeFileSync(productsFilePath, JSON.stringify(products));
+
+    res.redirect("/");
   },
 
   // Update - Form to edit
@@ -44,15 +60,31 @@ const controller = {
   update: (req, res) => {
     // Do the magic
     const id = req.params.id;
-    res.send("formulario recibido del update" + id);
+    const editProduct = req.body;
+    const index = products.findIndex((product) => product.id == id);
+
+    products[index].name = editProduct.name;
+    products[index].price = editProduct.price;
+    products[index].discount = editProduct.discount;
+    products[index].category = !editProduct.category
+      ? products[index].category
+      : editProduct.category;
+    products[index].description = editProduct.description;
+
+    fs.writeFileSync(productsFilePath, JSON.stringify(products));
+
+    res.redirect("/");
   },
 
   // Delete - Delete one product from DB
   destroy: (req, res) => {
     // Do the magic
     const id = req.params.id;
-    const product = products.find((product) => product.id == id);
-    res.send("aca se borrara el producto: " + product.name);
+
+    const leftProducts = products.filter((product) => product.id != id);
+    fs.writeFileSync(productsFilePath, JSON.stringify(leftProducts));
+
+    res.redirect("/");
   },
 };
 

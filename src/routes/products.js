@@ -1,9 +1,24 @@
 // ************ Require's ************
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
+const path = require("path");
 
 // ************ Controller Require ************
 const productsController = require("../controllers/productsController");
+// configuracion de multer
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/images/products");
+  },
+  filename: (req, file, cb) => {
+    const nameFile = `products_${Date.now()}${path.extname(file.originalname)}`;
+    cb(null, nameFile);
+  },
+});
+
+const uploadFile = multer({ storage });
 
 // La aplicación deberá contar con las 7 rutas de un ABM:
 // Listado de productos. check
@@ -19,7 +34,7 @@ router.get("/", productsController.index);
 
 // /*** CREATE ONE PRODUCT ***/
 router.get("/create", productsController.create);
-router.post("/", productsController.store);
+router.post("/", uploadFile.single("productImage"), productsController.store);
 
 /*** GET ONE PRODUCT ***/
 router.get("/detail/:id", productsController.detail);

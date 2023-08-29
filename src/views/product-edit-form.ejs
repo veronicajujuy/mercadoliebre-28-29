@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
   <!-- Include Head -->
-  <%- include('partials/head', {title: 'Editando: ' + '¿?'}) %>
+  <%- include('partials/head', {title: 'Editando: ' + productToEdit.name }) %>
   <body>
     <!-- Header -->
     <%- include('partials/headerNavbar') %>
@@ -24,7 +24,7 @@
                 type="text"
                 id="name"
                 name="name"
-                placeholder="<%= productToEdit.name %>"
+                value="<%= productToEdit.name %>"
                 class="form-input"
               />
             </div>
@@ -34,7 +34,7 @@
                 type="text"
                 id="price"
                 name="price"
-                placeholder="<%= productToEdit.price %>"
+                value="<%= productToEdit.price %>"
                 class="form-input"
               />
             </div>
@@ -44,7 +44,7 @@
                 type="text"
                 id="discount"
                 name="discount"
-                placeholder="<%= productToEdit.discount %>"
+                value="<%= productToEdit.discount %>"
                 class="form-input"
               />
             </div>
