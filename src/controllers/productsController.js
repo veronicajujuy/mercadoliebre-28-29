@@ -19,7 +19,7 @@ const controller = {
     // Do the magic
     const id = req.params.id;
     const product = products.find((product) => product.id == id);
-    res.render("detail", { product, toThousand });
+    res.render("products/detail", { product, toThousand });
   },
 
   // Create - Form to create
