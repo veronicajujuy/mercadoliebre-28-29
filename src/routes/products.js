@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const path = require("path");
+const { body } = require("express-validator");
 
 // ************ Controller Require ************
 const productsController = require("../controllers/productsController");
@@ -30,12 +31,34 @@ const uploadFile = multer({ storage });
 // Eliminación de productos.
 // Para las rutas de recepción de formularios y borrado, nos solicitan que simplemente mostremos, por ahora, un mensaje de la acción.
 
+// CONFIGURACION DE EXPRESS-VALIDATOR
+const validations = [
+  body("name").notEmpty().withMessage("El nombre no puede estar vacio"),
+  body("price")
+    .notEmpty()
+    .withMessage("El precio no puede estar vacio")
+    .bail()
+    .isNumeric()
+    .withMessage("El precio debe ser un numero"),
+  body("discount")
+    .notEmpty()
+    .withMessage("El descuento no puede estar vacio")
+    .bail()
+    .isNumeric()
+    .withMessage("El precio debe ser un numero"),
+];
+
 /*** GET ALL PRODUCTS ***/
 router.get("/", productsController.index);
 
 // /*** CREATE ONE PRODUCT ***/
-router.get("/create", logAdmin, productsController.create);
-router.post("/", uploadFile.single("productImage"), productsController.store);
+router.get("/create", productsController.create);
+router.post(
+  "/",
+  uploadFile.single("productImage"),
+  validations,
+  productsController.store
+);
 
 /*** GET ONE PRODUCT ***/
 router.get("/detail/:id", productsController.detail);
