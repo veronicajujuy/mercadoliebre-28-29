@@ -77,6 +77,9 @@
             <div class="col-12">
               <label for="foto" class="form-label">Foto:</label>
               <input type="file" name="productImage" id="foto" />
+              <% if (locals.errors && errors.productImage) { %>
+              <p class="errors"><%= errors.productImage.msg %></p>
+              <% } %>
             </div>
             <div class="col-12">
               <button type="submit" class="buy-now-button">

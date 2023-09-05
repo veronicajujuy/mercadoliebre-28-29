@@ -46,6 +46,13 @@ const validations = [
     .bail()
     .isNumeric()
     .withMessage("El precio debe ser un numero"),
+  body("productImage").custom((value, { req }) => {
+    let file = req.file;
+    if (!file) {
+      throw new Error("Tienes que subir una imagen");
+    }
+    return true;
+  }),
 ];
 
 /*** GET ALL PRODUCTS ***/
