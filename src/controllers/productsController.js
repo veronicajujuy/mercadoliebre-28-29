@@ -33,7 +33,6 @@ const controller = {
   store: (req, res) => {
     // Do the magic
     const resultValidations = validationResult(req);
-    console.log(resultValidations.mapped());
     if (resultValidations.errors.length > 0) {
       res.render("product-create-form", {
         errors: resultValidations.mapped(),

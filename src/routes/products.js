@@ -7,7 +7,6 @@ const { body } = require("express-validator");
 
 // ************ Controller Require ************
 const productsController = require("../controllers/productsController");
-const logAdmin = require("../middlewares/admin");
 // configuracion de multer
 
 const storage = multer.diskStorage({
@@ -71,10 +70,10 @@ router.post(
 router.get("/detail/:id", productsController.detail);
 
 // /*** EDIT ONE PRODUCT ***/
-router.get("/edit/:id", logAdmin, productsController.edit);
+router.get("/edit/:id", productsController.edit);
 router.post("/edit/:id", productsController.update);
 
 // /*** DELETE ONE PRODUCT***/
-router.post("/delete/:id", logAdmin, productsController.destroy);
+router.post("/delete/:id", productsController.destroy);
 
 module.exports = router;
