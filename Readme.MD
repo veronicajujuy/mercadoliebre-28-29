@@ -1,5 +1,7 @@
 # CRUD - CLASE 28
 
+> Importante: En la branch **express-validator** se encuentra el proyecto con la aplicación de validación de campos
+
 1. bajarme la aplicacion del playground
 2. npm install
 3. una vez levantado el proyecto comentar las lineas en product.js y en main.js
